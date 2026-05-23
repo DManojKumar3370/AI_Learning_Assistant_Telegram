@@ -2,24 +2,6 @@
 
 A cutting-edge personalized learning assistant built with **OpenClaw**, a self-hosted AI framework. This bot learns your technical interests and delivers curated daily interview questions and technical insights right to your Telegram every evening at 9 PM.
 
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-  - [Option A: Local Setup](#option-a-local-setup)
-  - [Option B: Docker Setup](#option-b-docker-setup)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Skills Documentation](#skills-documentation)
-- [Automation & Scheduling](#automation--scheduling)
-- [Testing](#testing)
-- [Troubleshooting](#troubleshooting)
-- [Advanced Configuration](#advanced-configuration)
-- [Project Structure](#project-structure)
-
 ## 📖 Overview
 
 This project implements a personalized Telegram bot powered by OpenClaw, an open-source personal AI assistant framework. Unlike traditional chatbots, this system:
