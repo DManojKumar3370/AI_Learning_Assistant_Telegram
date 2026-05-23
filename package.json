@@ -1,0 +1,57 @@
+{
+  "name": "ai-learning-assistant-telegram",
+  "version": "1.0.0",
+  "description": "A personalized AI learning assistant on Telegram powered by OpenClaw",
+  "author": "Your Name",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "keywords": [
+    "openclaw",
+    "telegram",
+    "bot",
+    "ai",
+    "learning",
+    "assistant",
+    "interview",
+    "automation",
+    "cron",
+    "llm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/AI_Learning_Assistant_Telegram.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/AI_Learning_Assistant_Telegram/issues"
+  },
+  "homepage": "https://github.com/yourusername/AI_Learning_Assistant_Telegram#readme",
+  "scripts": {
+    "setup": "bash scripts/setup.sh",
+    "init": "bash scripts/init.sh",
+    "deploy": "bash scripts/deploy.sh",
+    "start": "openclaw gateway start",
+    "stop": "openclaw gateway stop",
+    "restart": "openclaw gateway restart",
+    "onboard": "openclaw onboard",
+    "logs": "openclaw gateway logs",
+    "test": "openclaw cron trigger nightly-tech-brief",
+    "memory:get": "openclaw memory get",
+    "memory:list": "openclaw memory list",
+    "skills:list": "openclaw skills list",
+    "cron:list": "openclaw cron list",
+    "cron:trigger": "openclaw cron trigger",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f openclaw-gateway",
+    "docker:shell": "docker exec -it ai-learning-assistant /bin/sh"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "globalDependencies": [
+    "openclaw"
+  ]
+}

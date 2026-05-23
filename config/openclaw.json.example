@@ -1,0 +1,86 @@
+{
+  "agent": {
+    "name": "PersonalLearningAssistant",
+    "description": "A personalized AI learning assistant that delivers curated daily tech briefs and interview questions tailored to user interests.",
+    "version": "1.0.0"
+  },
+  "gateway": {
+    "port": 3000,
+    "host": "0.0.0.0"
+  },
+  "models": [
+    {
+      "id": "primary",
+      "provider": "${env.LLM_PROVIDER:ollama}",
+      "model": "${env.LLM_MODEL:llama3:8b}",
+      "config": {
+        "temperature": 0.7,
+        "maxTokens": 2048,
+        "topP": 0.9
+      }
+    }
+  ],
+  "plugins": {
+    "entries": {
+      "telegram": {
+        "enabled": true,
+        "package": "@openclaw/plugin-telegram",
+        "config": {
+          "botToken": "${env.TELEGRAM_BOT_TOKEN}",
+          "pollingInterval": 3000,
+          "parseMode": "Markdown"
+        }
+      }
+    }
+  },
+  "tools": {
+    "webSearch": {
+      "enabled": true,
+      "provider": "${env.WEB_SEARCH_PROVIDER:duckduckgo}",
+      "config": {
+        "maxResults": 5,
+        "timeout": 10000
+      }
+    },
+    "webFetch": {
+      "enabled": true,
+      "config": {
+        "timeout": 15000,
+        "userAgent": "PersonalLearningAssistant/1.0"
+      }
+    },
+    "memoryStore": {
+      "enabled": true,
+      "type": "persistent",
+      "config": {
+        "storePath": "/root/.openclaw/memory.json",
+        "autoSync": true
+      }
+    }
+  },
+  "memory": {
+    "type": "persistent",
+    "storePath": "/root/.openclaw/memory.json",
+    "autoSync": true,
+    "encryption": false
+  },
+  "scheduler": {
+    "enabled": true,
+    "timezone": "${env.TIMEZONE:UTC}"
+  },
+  "skills": {
+    "path": "/root/.openclaw/skills",
+    "autoLoad": true
+  },
+  "logging": {
+    "level": "info",
+    "format": "json",
+    "outputs": ["console", "file"],
+    "file": "/root/.openclaw/logs/openclaw.log"
+  },
+  "behavior": {
+    "responseStyle": "friendly_and_professional",
+    "defaultTimeout": 30000,
+    "retryAttempts": 3
+  }
+}

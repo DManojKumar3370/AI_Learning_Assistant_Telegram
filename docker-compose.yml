@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # OpenClaw Gateway Service
+  openclaw-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai-learning-assistant
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - OLLAMA_API_URL=${OLLAMA_API_URL:-http://ollama:11434}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - LLM_PROVIDER=${LLM_PROVIDER:-ollama}
+      - LLM_MODEL=${LLM_MODEL:-llama3:8b}
+      - WEB_SEARCH_PROVIDER=${WEB_SEARCH_PROVIDER:-duckduckgo}
+      - TIMEZONE=${TIMEZONE:-UTC}
+    ports:
+      - "3000:3000"
+    volumes:
+      - openclaw-config:/root/.openclaw
+      - ./skills:/app/skills:ro
+    depends_on:
+      - ollama
+    networks:
+      - ai-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Ollama Service (Optional - only if using local LLM)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-server
+    restart: always
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-models:/root/.ollama
+    networks:
+      - ai-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  openclaw-config:
+    driver: local
+  ollama-models:
+    driver: local
+
+networks:
+  ai-network:
+    driver: bridge
